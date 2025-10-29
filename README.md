@@ -1,61 +1,190 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
-QFI — Quantified Faith Index
-============================
+# QFI — Quantified Faith Index
 
-セットアップ
--------------
+推し活動を定量化し、信仰度指数（QFI）としてビジュアライズするWebアプリケーション。
 
-```
-npm i
-npm run dev
-```
+## 🌟 特徴
 
-機能
-----
-- 入力: 時間/金額/感情Z を手動入力
-- 算出: Ed(日次) と QFI(減衰累積) を純関数で計算
-- 表示: Ed(棒) と QFI(折れ線)、ランク A–E
-- 署名: Ed を擬似署名しモックAPIへ送信する関数を用意
+- **📊 リアルタイム可視化**: 日次スコア（Ed）と累積スコア（QFI）をインタラクティブなチャートで表示
+- **🎨 モダンUI**: Next.js 15 + shadcn/ui による洗練されたインターフェース
+- **🌓 ダークモード**: 目に優しいダークテーマ対応（LocalStorage永続化）
+- **📱 レスポンシブ**: モバイル、タブレット、デスクトップに完全対応
+- **⚙️ カスタマイズ可能**: 正規化・重み・減衰・ランク閾値を自由に調整
+- **♿ アクセシブル**: WCAG準拠のアクセシビリティ設計
 
-構成
-----
-- `src/lib/types.ts`: 型定義
-- `src/lib/qfi.ts`: 純関数(正規化/Ed/QFI/ランク)
-- `src/lib/store.ts`: Zustand ストア
-- `src/lib/mockApi.ts`: モックAPI(署名/記録/ミント)
-- `src/app/page.tsx`: ダッシュボード UI
-
-## Getting Started
-
-First, run the development server:
+## 🚀 クイックスタート
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+# 依存関係のインストール
+pnpm install
+
+# 開発サーバーの起動
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+ブラウザで [http://localhost:3000](http://localhost:3000) を開いてください。
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 📖 使い方
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 1. データ入力
 
-## Learn More
+入力フォームから以下の情報を記録します：
 
-To learn more about Next.js, take a look at the following resources:
+- **時間（分）**: 推し関連活動に費やした時間
+- **金額（JPY）**: 推しに使った金額
+- **感情Z**: 感情の高まり度合い（-3.0 ~ +3.0）
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 2. サンプルデータで試す
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+初めての方は「サンプルデータを読み込む」ボタンをクリックして、7日分のテストデータで動作を確認できます。
 
-## Deploy on Vercel
+### 3. チャートで確認
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **日次スコア（Ed）**: 棒グラフで日々の活動量を表示
+- **累積スコア（QFI）**: 折れ線グラフで減衰を考慮した累積値を表示
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### 4. ランク確認
+
+ヘッダー右上に現在のランク（A～E）が表示されます：
+
+| ランク | 説明 |
+|--------|------|
+| 🟢 A | 非常に高い信仰度 |
+| 🔵 B | 高い信仰度 |
+| 🟡 C | 中程度の信仰度 |
+| 🟠 D | 低い信仰度 |
+| 🔴 E | 非常に低い信仰度 |
+
+### 5. パラメータ調整
+
+⚙️ 設定ボタンから計算パラメータを調整できます：
+
+- **正規化パラメータ**: 時間と金額の平均・標準偏差
+- **重みパラメータ**: 時間・金額・感情の重要度（α, β, γ）
+- **減衰パラメータ**: QFIの半減期（日数）
+- **ランク閾値**: A～Dランクの境界値
+
+## 🏗️ 技術スタック
+
+- **Framework**: [Next.js 15](https://nextjs.org/) (React 19)
+- **Language**: [TypeScript](https://www.typescriptlang.org/)
+- **Styling**: [Tailwind CSS v4](https://tailwindcss.com/)
+- **UI Components**: [shadcn/ui](https://ui.shadcn.com/)
+- **State Management**: [Zustand](https://zustand-demo.pmnd.rs/)
+- **Charts**: [Recharts](https://recharts.org/)
+- **Icons**: [Lucide React](https://lucide.dev/)
+
+## 📁 プロジェクト構造
+
+```
+src/
+├── app/
+│   ├── page.tsx              # メインダッシュボード
+│   ├── layout.tsx            # ルートレイアウト
+│   └── globals.css           # グローバルスタイル
+├── components/
+│   ├── ui/                   # shadcn/ui基本コンポーネント
+│   ├── RankBadge.tsx         # ランク表示
+│   ├── EdChart.tsx           # Ed棒グラフ
+│   ├── QfiChart.tsx          # QFI折れ線グラフ
+│   ├── InputForm.tsx         # データ入力フォーム
+│   ├── DataTable.tsx         # データ一覧テーブル
+│   ├── SettingsDialog.tsx    # 設定ダイアログ
+│   └── ThemeToggle.tsx       # ダークモード切替
+└── lib/
+    ├── types.ts              # 型定義
+    ├── qfi.ts                # QFI計算ロジック
+    ├── store.ts              # Zustand ストア
+    ├── mockApi.ts            # モックAPI
+    ├── config.ts             # 設定
+    └── utils.ts              # ユーティリティ
+```
+
+## 🧮 QFI計算ロジック
+
+### 1. 正規化
+
+時間と金額をZ-スコア化：
+
+```
+z_time = (time - μ_time) / σ_time
+z_money = (money - μ_money) / σ_money
+```
+
+### 2. 日次スコア（Ed）
+
+3つの要素を重み付け合計：
+
+```
+Ed = α × z_time + β × z_money + γ × z_emotion
+```
+
+### 3. 累積スコア（QFI）
+
+指数減衰を適用した累積：
+
+```
+QFI[t] = Ed[t] + QFI[t-1] × exp(-λ)
+λ = ln(2) / halfLifeDays
+```
+
+### 4. ランク判定
+
+QFI値に基づいて5段階評価：
+
+```
+QFI >= threshold_A → A
+QFI >= threshold_B → B
+QFI >= threshold_C → C
+QFI >= threshold_D → D
+その他 → E
+```
+
+## 🛠️ 開発
+
+### ビルド
+
+```bash
+pnpm build
+```
+
+### プロダクション起動
+
+```bash
+pnpm start
+```
+
+### リント
+
+```bash
+pnpm lint
+```
+
+## 📚 ドキュメント
+
+詳細な実装ドキュメントは [IMPLEMENTATION.md](./IMPLEMENTATION.md) を参照してください。
+
+UI仕様書は [UI_SPECIFICATION.md](./UI_SPECIFICATION.md) を参照してください。
+
+## 🤝 コントリビューション
+
+プルリクエストを歓迎します！大きな変更を加える場合は、まずissueを開いて変更内容を議論してください。
+
+## 📄 ライセンス
+
+このプロジェクトはMITライセンスの下で公開されています。
+
+## 🙏 謝辞
+
+このプロジェクトは以下のオープンソースプロジェクトを使用しています：
+
+- [Next.js](https://nextjs.org/)
+- [React](https://react.dev/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [shadcn/ui](https://ui.shadcn.com/)
+- [Zustand](https://zustand-demo.pmnd.rs/)
+- [Recharts](https://recharts.org/)
+- [Lucide](https://lucide.dev/)
+
+---
+
+**Made with ❤️ for all oshikatsu enthusiasts**

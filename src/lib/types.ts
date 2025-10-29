@@ -13,10 +13,10 @@ export type DailyStats = {
 };
 
 export type NormalizationParams = {
-  meanTimeMinutes: number; // μ_t
-  stdTimeMinutes: number; // σ_t (>0)
-  meanMoneyJpy: number; // μ_m
-  stdMoneyJpy: number; // σ_m (>0)
+  muTime: number; // μ_t
+  sigmaTime: number; // σ_t (>0)
+  muMoney: number; // μ_m
+  sigmaMoney: number; // σ_m (>0)
 };
 
 export type WeightParams = {
@@ -31,25 +31,26 @@ export type DecayParams = {
 
 export type ScoreEd = {
   date: string;
-  value: number;
-  zTime: number;
-  zMoney: number;
-  zEmotion: number;
+  ed: number;
+  zTime?: number;
+  zMoney?: number;
+  zEmotion?: number;
 };
 
 export type ScoreQfiPoint = {
   date: string;
-  value: number;
+  qfi: number;
+  delta?: number;
 };
 
 export type Rank = "A" | "B" | "C" | "D" | "E";
 
 export type RankBreakpoints = {
   // 上位から順: A > B > C > D > E
-  a: number; // 分位またはスコア閾値
-  b: number;
-  c: number;
-  d: number;
+  A: number; // 分位またはスコア閾値
+  B: number;
+  C: number;
+  D: number;
 };
 
 export type DevotionSignature = {

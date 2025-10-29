@@ -6,13 +6,13 @@ export const defaultApiConfig: ApiConfig = {
 
 export async function createDevotionSignature(ed: ScoreEd): Promise<DevotionSignature> {
   // 実運用: ウォレット署名 or サーバ署名
-  const payload = `${ed.date}:${ed.value.toFixed(6)}`;
+  const payload = `${ed.date}:${ed.ed.toFixed(6)}`;
   const encoder = new TextEncoder();
   const data = encoder.encode(payload);
   const hashBuffer = await crypto.subtle.digest("SHA-256", data);
   const hashArray = Array.from(new Uint8Array(hashBuffer));
   const signatureHex = hashArray.map((b) => b.toString(16).padStart(2, "0")).join("");
-  return { edDate: ed.date, edValue: ed.value, signatureHex };
+  return { edDate: ed.date, edValue: ed.ed, signatureHex };
 }
 
 export async function recordEdScore(ed: ScoreEd, cfg: ApiConfig = defaultApiConfig): Promise<{ id: string }>{
