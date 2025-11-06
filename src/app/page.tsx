@@ -3,6 +3,7 @@
 import { useAppStore } from "@/lib/store";
 import { RankBadge } from "@/components/RankBadge";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { QfiScoreDisplay } from "@/components/QfiScoreDisplay";
 import { EdChart } from "@/components/EdChart";
 import { QfiChart } from "@/components/QfiChart";
 import { InputForm } from "@/components/InputForm";
@@ -49,15 +50,24 @@ export default function Home() {
     <div className="min-h-screen bg-background">
       <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8 space-y-8">
         {/* ヘッダー */}
-        <header className="flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <h1 className="text-2xl font-bold">Quantified Faith Index</h1>
+        <header className="space-y-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-4">
+              <h1 className="text-2xl font-bold">Quantified Faith Index</h1>
+            </div>
+            <div className="flex items-center gap-2">
+              {latestRank && <RankBadge rank={latestRank} />}
+              <SettingsDialog />
+              <ThemeToggle />
+            </div>
           </div>
-          <div className="flex items-center gap-2">
-            {latestRank && <RankBadge rank={latestRank} />}
-            <SettingsDialog />
-            <ThemeToggle />
-          </div>
+          
+          {/* QFIスコア表示 */}
+          {daily.length > 0 && (
+            <div className="max-w-xs mx-auto md:mx-0 md:max-w-sm">
+              <QfiScoreDisplay />
+            </div>
+          )}
         </header>
 
         {/* チャート */}
