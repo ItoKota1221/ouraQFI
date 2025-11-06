@@ -29,27 +29,27 @@ export function AutoDataGenerator() {
     };
   };
 
-  // 5分ごとにデータを追加
+  // 30秒ごとにデータを追加
   const startAutoGeneration = () => {
     if (isRunning) return;
 
     setIsRunning(true);
-    setNextUpdate(300); // 5分 = 300秒
+    setNextUpdate(30); // 30秒
 
     // 最初のデータをすぐに追加
     const data = generateRandomData();
     addDaily(data);
 
-    // 5分ごとにデータを追加
+    // 30秒ごとにデータを追加
     intervalRef.current = setInterval(() => {
       const data = generateRandomData();
       addDaily(data);
-      setNextUpdate(300); // リセット
-    }, 300000); // 5分 = 300,000ミリ秒
+      setNextUpdate(30); // リセット
+    }, 30000); // 30秒 = 30,000ミリ秒
 
     // カウントダウン用のタイマー（1秒ごと）
     countdownRef.current = setInterval(() => {
-      setNextUpdate((prev) => (prev !== null && prev > 0 ? prev - 1 : 300));
+      setNextUpdate((prev) => (prev !== null && prev > 0 ? prev - 1 : 30));
     }, 1000);
   };
 
@@ -91,9 +91,9 @@ export function AutoDataGenerator() {
     <Card className="transition-shadow hover:shadow-md">
       <CardHeader>
         <CardTitle>展示用データ生成</CardTitle>
-        <CardDescription>
-          5分毎にデータを自動生成（デモ用）
-        </CardDescription>
+          <CardDescription>
+            30秒毎にデータを自動生成（デモ用）
+          </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="flex items-center gap-2">
@@ -119,7 +119,7 @@ export function AutoDataGenerator() {
 
         {!isRunning && (
           <p className="text-sm text-muted-foreground">
-            開始ボタンを押すと、5分ごとに30〜180分のランダムな活動時間データが生成されます。
+            開始ボタンを押すと、30秒ごとに30〜180分のランダムな活動時間データが生成されます。
           </p>
         )}
       </CardContent>

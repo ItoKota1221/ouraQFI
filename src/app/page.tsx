@@ -75,7 +75,7 @@ export default function Home() {
           <Card className="transition-shadow hover:shadow-md">
             <CardHeader>
               <CardTitle>累積スコア（QFI）</CardTitle>
-              <CardDescription>減衰を考慮した累積信仰度指数</CardDescription>
+              <CardDescription>減衰を考慮した累積熱中度指数</CardDescription>
             </CardHeader>
             <CardContent>
               <QfiChart data={qfi} />
