@@ -14,8 +14,6 @@ interface InputFormProps {
 
 export function InputForm({ onSubmit, onReset, defaultValues }: InputFormProps) {
   const [timeMinutes, setTimeMinutes] = useState(defaultValues?.timeMinutes ?? 60);
-  const [moneyJpy, setMoneyJpy] = useState(defaultValues?.moneyJpy ?? 1000);
-  const [emotionZ, setEmotionZ] = useState(defaultValues?.emotionZ ?? 0);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -26,9 +24,6 @@ export function InputForm({ onSubmit, onReset, defaultValues }: InputFormProps) 
     // バリデーション
     if (timeMinutes < 0) {
       newErrors.timeMinutes = "時間は0以上である必要があります";
-    }
-    if (moneyJpy < 0) {
-      newErrors.moneyJpy = "金額は0以上である必要があります";
     }
     
     if (Object.keys(newErrors).length > 0) {
@@ -44,78 +39,40 @@ export function InputForm({ onSubmit, onReset, defaultValues }: InputFormProps) 
     onSubmit({
       date: today,
       timeMinutes,
-      moneyJpy,
-      emotionZ,
+      moneyJpy: 0, // 金額は常に0に固定
+      emotionZ: 0, // 感情Zは常に0に固定
     });
   };
 
   const handleResetClick = () => {
     setTimeMinutes(60);
-    setMoneyJpy(1000);
-    setEmotionZ(0);
     setErrors({});
     onReset?.();
   };
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div className="space-y-2">
-          <Label htmlFor="timeMinutes">時間（分）</Label>
-          <Input
-            id="timeMinutes"
-            type="number"
-            min="0"
-            value={timeMinutes}
-            onChange={(e) => {
-              setTimeMinutes(Number(e.target.value));
-              if (errors.timeMinutes) {
-                setErrors((prev) => {
-                  const next = { ...prev };
-                  delete next.timeMinutes;
-                  return next;
-                });
-              }
-            }}
-          />
-          {errors.timeMinutes && (
-            <p className="text-sm text-destructive">{errors.timeMinutes}</p>
-          )}
-        </div>
-
-        <div className="space-y-2">
-          <Label htmlFor="moneyJpy">金額（JPY）</Label>
-          <Input
-            id="moneyJpy"
-            type="number"
-            min="0"
-            value={moneyJpy}
-            onChange={(e) => {
-              setMoneyJpy(Number(e.target.value));
-              if (errors.moneyJpy) {
-                setErrors((prev) => {
-                  const next = { ...prev };
-                  delete next.moneyJpy;
-                  return next;
-                });
-              }
-            }}
-          />
-          {errors.moneyJpy && (
-            <p className="text-sm text-destructive">{errors.moneyJpy}</p>
-          )}
-        </div>
-
-        <div className="space-y-2">
-          <Label htmlFor="emotionZ">感情Z</Label>
-          <Input
-            id="emotionZ"
-            type="number"
-            step="0.01"
-            value={emotionZ}
-            onChange={(e) => setEmotionZ(Number(e.target.value))}
-          />
-        </div>
+      <div className="space-y-2">
+        <Label htmlFor="timeMinutes">時間（分）</Label>
+        <Input
+          id="timeMinutes"
+          type="number"
+          min="0"
+          value={timeMinutes}
+          onChange={(e) => {
+            setTimeMinutes(Number(e.target.value));
+            if (errors.timeMinutes) {
+              setErrors((prev) => {
+                const next = { ...prev };
+                delete next.timeMinutes;
+                return next;
+              });
+            }
+          }}
+        />
+        {errors.timeMinutes && (
+          <p className="text-sm text-destructive">{errors.timeMinutes}</p>
+        )}
       </div>
 
       <div className="flex gap-2">

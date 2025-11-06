@@ -22,13 +22,13 @@ import {
 } from "@/components/ui/dialog";
 
 const sampleData: DailyStats[] = [
-  { date: "2025-10-21", timeMinutes: 60, moneyJpy: 1000, emotionZ: 0.5 },
-  { date: "2025-10-22", timeMinutes: 90, moneyJpy: 1500, emotionZ: 1.0 },
-  { date: "2025-10-23", timeMinutes: 45, moneyJpy: 800, emotionZ: -0.2 },
-  { date: "2025-10-24", timeMinutes: 120, moneyJpy: 2000, emotionZ: 1.5 },
-  { date: "2025-10-25", timeMinutes: 75, moneyJpy: 1200, emotionZ: 0.8 },
-  { date: "2025-10-26", timeMinutes: 60, moneyJpy: 1000, emotionZ: 0.3 },
-  { date: "2025-10-27", timeMinutes: 100, moneyJpy: 1800, emotionZ: 1.2 },
+  { date: "2025-10-21", timeMinutes: 60, moneyJpy: 0, emotionZ: 0 },
+  { date: "2025-10-22", timeMinutes: 90, moneyJpy: 0, emotionZ: 0 },
+  { date: "2025-10-23", timeMinutes: 45, moneyJpy: 0, emotionZ: 0 },
+  { date: "2025-10-24", timeMinutes: 120, moneyJpy: 0, emotionZ: 0 },
+  { date: "2025-10-25", timeMinutes: 75, moneyJpy: 0, emotionZ: 0 },
+  { date: "2025-10-26", timeMinutes: 60, moneyJpy: 0, emotionZ: 0 },
+  { date: "2025-10-27", timeMinutes: 100, moneyJpy: 0, emotionZ: 0 },
 ];
 
 export default function Home() {
@@ -64,7 +64,7 @@ export default function Home() {
           <Card className="transition-shadow hover:shadow-md">
             <CardHeader>
               <CardTitle>日次スコア（Ed）</CardTitle>
-              <CardDescription>時間・金額・感情を統合した日次評価</CardDescription>
+              <CardDescription>時間を基にした日次評価</CardDescription>
             </CardHeader>
             <CardContent>
               <EdChart data={eds} />
@@ -87,7 +87,7 @@ export default function Home() {
           <CardHeader>
             <CardTitle>データ入力</CardTitle>
             <CardDescription>
-              推し活動の時間・金額・感情を記録してください
+              活動の時間を記録してください
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">

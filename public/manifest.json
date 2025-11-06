@@ -1,7 +1,7 @@
 {
   "name": "Quantified Faith Index",
   "short_name": "QFI",
-  "description": "推し活を定量化・可視化するWebアプリケーション",
+  "description": "貢献度を定量化・可視化するWebアプリケーション",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",

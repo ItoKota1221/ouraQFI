@@ -23,16 +23,6 @@ export function EdChart({ data }: EdChartProps) {
               zTime: {item.zTime.toFixed(2)}
             </p>
           )}
-          {item.zMoney !== undefined && (
-            <p className="text-xs text-muted-foreground">
-              zMoney: {item.zMoney.toFixed(2)}
-            </p>
-          )}
-          {item.zEmotion !== undefined && (
-            <p className="text-xs text-muted-foreground">
-              zEmotion: {item.zEmotion.toFixed(2)}
-            </p>
-          )}
         </div>
       );
     }

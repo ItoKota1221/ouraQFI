@@ -90,7 +90,7 @@ src/
 日次スコア（Ed）を棒グラフで表示。カスタムツールチップには以下を表示：
 - 日付
 - Edスコア
-- 内訳（zTime, zMoney, zEmotion）
+- 内訳（zTime）
 
 ### 3. QfiChart
 
@@ -110,8 +110,6 @@ src/
 
 データ入力フォーム。バリデーション機能付き：
 - 時間（分）: 0以上
-- 金額（JPY）: 0以上
-- 感情Z: 任意の実数
 
 ### 5. DataTable
 
@@ -182,13 +180,13 @@ HSLトークンベースのshadcn/uiデフォルトカラーを使用。
 
 ```typescript
 const sampleData = [
-  { date: "2025-10-21", timeMinutes: 60, moneyJpy: 1000, emotionZ: 0.5 },
-  { date: "2025-10-22", timeMinutes: 90, moneyJpy: 1500, emotionZ: 1.0 },
-  { date: "2025-10-23", timeMinutes: 45, moneyJpy: 800, emotionZ: -0.2 },
-  { date: "2025-10-24", timeMinutes: 120, moneyJpy: 2000, emotionZ: 1.5 },
-  { date: "2025-10-25", timeMinutes: 75, moneyJpy: 1200, emotionZ: 0.8 },
-  { date: "2025-10-26", timeMinutes: 60, moneyJpy: 1000, emotionZ: 0.3 },
-  { date: "2025-10-27", timeMinutes: 100, moneyJpy: 1800, emotionZ: 1.2 },
+  { date: "2025-10-21", timeMinutes: 60, moneyJpy: 0, emotionZ: 0 },
+  { date: "2025-10-22", timeMinutes: 90, moneyJpy: 0, emotionZ: 0 },
+  { date: "2025-10-23", timeMinutes: 45, moneyJpy: 0, emotionZ: 0 },
+  { date: "2025-10-24", timeMinutes: 120, moneyJpy: 0, emotionZ: 0 },
+  { date: "2025-10-25", timeMinutes: 75, moneyJpy: 0, emotionZ: 0 },
+  { date: "2025-10-26", timeMinutes: 60, moneyJpy: 0, emotionZ: 0 },
+  { date: "2025-10-27", timeMinutes: 100, moneyJpy: 0, emotionZ: 0 },
 ];
 ```
 
@@ -200,8 +198,8 @@ const sampleData = [
 type DailyStats = {
   date: string;         // "YYYY-MM-DD"
   timeMinutes: number;  // >= 0
-  moneyJpy: number;     // >= 0
-  emotionZ: number;     // 任意の実数
+  moneyJpy: number;     // 常に0（計算ロジックに埋め込み）
+  emotionZ: number;     // 常に0（計算ロジックに埋め込み）
 };
 ```
 
@@ -212,8 +210,6 @@ type ScoreEd = {
   date: string;
   ed: number;
   zTime?: number;
-  zMoney?: number;
-  zEmotion?: number;
 };
 ```
 

@@ -54,8 +54,6 @@ export function DataTable({ data, eds, qfi }: DataTableProps) {
           <TableRow>
             <TableHead>日付</TableHead>
             <TableHead className="text-right">時間（分）</TableHead>
-            <TableHead className="text-right">金額（JPY）</TableHead>
-            <TableHead className="text-right">感情Z</TableHead>
             <TableHead className="text-right">Ed</TableHead>
             <TableHead className="text-right">QFI</TableHead>
           </TableRow>
@@ -65,8 +63,6 @@ export function DataTable({ data, eds, qfi }: DataTableProps) {
             <TableRow key={`${row.date}-${idx}`}>
               <TableCell className="font-medium">{row.date}</TableCell>
               <TableCell className="text-right">{row.timeMinutes}</TableCell>
-              <TableCell className="text-right">{row.moneyJpy.toLocaleString()}</TableCell>
-              <TableCell className="text-right">{row.emotionZ.toFixed(2)}</TableCell>
               <TableCell className="text-right">{row.ed.toFixed(2)}</TableCell>
               <TableCell className="text-right">{row.qfi.toFixed(2)}</TableCell>
             </TableRow>
