@@ -8,6 +8,7 @@ import { QfiChart } from "@/components/QfiChart";
 import { InputForm } from "@/components/InputForm";
 import { DataTable } from "@/components/DataTable";
 import { SettingsDialog } from "@/components/SettingsDialog";
+import { AutoDataGenerator } from "@/components/AutoDataGenerator";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { DailyStats } from "@/lib/types";
@@ -82,26 +83,30 @@ export default function Home() {
           </Card>
         </section>
 
-        {/* 入力フォーム */}
-        <Card className="transition-shadow hover:shadow-md">
-          <CardHeader>
-            <CardTitle>データ入力</CardTitle>
-            <CardDescription>
-              活動の時間を記録してください
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <InputForm
-              onSubmit={addDaily}
-              onReset={() => setShowResetDialog(true)}
-            />
-            <div className="flex gap-2 pt-2 border-t">
-              <Button variant="secondary" onClick={handleLoadSample}>
-                サンプルデータを読み込む
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
+        {/* 入力フォームと自動生成 */}
+        <section className="grid gap-6 md:grid-cols-2">
+          <Card className="transition-shadow hover:shadow-md">
+            <CardHeader>
+              <CardTitle>データ入力</CardTitle>
+              <CardDescription>
+                活動の時間を記録してください
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <InputForm
+                onSubmit={addDaily}
+                onReset={() => setShowResetDialog(true)}
+              />
+              <div className="flex gap-2 pt-2 border-t">
+                <Button variant="secondary" onClick={handleLoadSample}>
+                  サンプルデータを読み込む
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+
+          <AutoDataGenerator />
+        </section>
 
         {/* データテーブル */}
         {daily.length > 0 && (
