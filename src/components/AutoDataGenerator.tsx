@@ -117,6 +117,12 @@ export function AutoDataGenerator() {
           )}
         </div>
 
+        {isRunning && nextUpdate !== null && (
+          <p className="text-sm text-muted-foreground">
+            次の生成まで: <span className="font-mono">{formatTime(nextUpdate)}</span>
+          </p>
+        )}
+
         {!isRunning && (
           <p className="text-sm text-muted-foreground">
             開始ボタンを押すと、30秒ごとに30〜180分のランダムな活動時間データが生成されます。
